@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía de Estudio - Examen Administración III</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f0f2f5;color:#333;padding-bottom:60px}
+  .header{background:linear-gradient(135deg,#1a237e,#0d47a1);color:#fff;padding:30px 20px;text-align:center;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,.2)}
+  .header h1{font-size:1.6em;margin-bottom:5px}
+  .header p{font-size:.9em;opacity:.9}
+  .header .badge{display:inline-block;background:rgba(255,255,255,.15);padding:4px 14px;border-radius:20px;font-size:.8em;margin-top:8px}
+  .container{max-width:860px;margin:20px auto;padding:0 15px}
+  .unit-card{background:#fff;border-radius:12px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,.08);overflow:hidden}
+  .unit-header{background:linear-gradient(135deg,#283593,#1565c0);color:#fff;padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:.3s}
+  .unit-header:hover{background:linear-gradient(135deg,#1a237e,#0d47a1)}
+  .unit-header h2{font-size:1.1em;font-weight:600}
+  .unit-header .toggle-icon{font-size:1.4em;transition:transform .3s;font-weight:700}
+  .unit-header.active .toggle-icon{transform:rotate(180deg)}
+  .unit-content{display:none;padding:10px 20px 20px}
+  .unit-content.open{display:block}
+  .q-item{border-bottom:1px solid #e8eaf6;padding:15px 0}
+  .q-item:last-child{border-bottom:none}
+  .q-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:#e8eaf6;color:#283593;border-radius:50%;font-size:.8em;font-weight:700;margin-right:8px;flex-shrink:0}
+  .q-text{font-weight:600;color:#1a237e;font-size:.95em;margin-bottom:8px;display:flex;align-items:flex-start}
+  .q-text .q-num{margin-top:1px}
+  .q-answer{color:#444;font-size:.9em;line-height:1.6;padding-left:36px}
+  .q-answer ul{margin:6px 0 6px 20px}
+  .q-answer li{margin-bottom:4px}
+  .q-answer strong{color:#1a237e}
+  .nav-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #ddd;display:flex;overflow-x:auto;z-index:100;box-shadow:0 -2px 10px rgba(0,0,0,.1)}
+  .nav-btn{flex:1;min-width:60px;padding:10px 8px;text-align:center;font-size:.75em;color:#666;cursor:pointer;border:none;background:none;transition:.2s;text-decoration:none}
+  .nav-btn:hover{background:#e8eaf6;color:#1a237e}
+  .nav-btn.active{color:#1a237e;font-weight:600;border-top:3px solid #1a237e}
+  .nav-btn .nav-num{display:block;font-size:.9em;font-weight:700}
+  @media(max-width:600px){
+    .header h1{font-size:1.3em}
+    .unit-header h2{font-size:1em}
+    .q-answer{padding-left:0;margin-top:6px}
+    .q-text{flex-wrap:wrap}
+  }
+  .progress-wrap{background:#e0e0e0;border-radius:10px;height:6px;margin:10px 0 5px;overflow:hidden}
+  .progress-bar{background:#4caf50;height:100%;border-radius:10px;width:0;transition:width .5s}
+  .progress-text{font-size:.8em;color:#666;text-align:center}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📘 Administración III</h1>
+  <p>Guía de Estudio - Preguntas de Retroalimentación</p>
+  <div class="badge">5 Unidades · 63 Preguntas</div>
+  <div class="progress-wrap" style="max-width:300px;margin:10px auto 0">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+  <div class="progress-text" id="progressText">0 / 63</div>
+</div>
+
+<div class="container" id="app">
+
+  <!-- UNIDAD I -->
+  <div class="unit-card" data-unit="1">
+    <div class="unit-header" onclick="toggleUnit(this)">
+      <h2>Unidad I: Dirección de Personal y Gestión del Talento Humano</h2>
+      <span class="toggle-icon">▾</span>
+    </div>
+    <div class="unit-content">
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">1</span> ¿Qué es la Dirección de Personal y cuál es su objetivo dentro de las organizaciones?</div>
+        <div class="q-answer">Es el conjunto de políticas, prácticas y procesos orientados a <strong>administrar, desarrollar y retener</strong> a las personas en una organización. Su objetivo general es analizar la evolución y el rol estratégico de las personas para asegurar que contribuyan al éxito institucional. Objetivos específicos: atraer y retener talento, desarrollar capacidades, mejorar el desempeño y la productividad, garantizar cumplimiento legal y promover un clima organizacional positivo.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">2</span> ¿Por qué actualmente se utiliza el término Gestión del Talento Humano?</div>
+        <div class="q-answer">Porque el enfoque evolucionó de una administración reactiva y administrativa a una <strong>gestión proactiva y estratégica</strong>. En el contexto de globalización y transformación digital, las personas son el principal activo generador de valor y la fuente de ventaja competitiva. El trabajador es visto como un <strong>socio estratégico</strong> y agente de innovación.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">3</span> Explique la diferencia entre administrar personal y gestionar talento.</div>
+        <div class="q-answer"><strong>Administrar personal</strong> (enfoque clásico): ve al trabajador como factor de producción y costo operativo, con control disciplinario y tareas rígidas. <strong>Gestionar talento</strong> (enfoque moderno): ve al trabajador como socio estratégico y generador de conocimiento, buscando alineación con la estrategia organizacional mediante liderazgo transformador y gestión por competencias.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">4</span> Describa las características de la Dirección de Personal durante la Revolución Industrial.</div>
+        <div class="q-answer">Enfoque productivista: interés centrado en la producción masiva y eficiencia mecánica. Jornadas de <strong>12 a 16 horas</strong>, escasas condiciones de seguridad, trabajo repetitivo y mecanizado. No existían departamentos de personal formales; el trabajador era considerado similar a una máquina o materia prima.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">5</span> ¿Qué aportes realizó Frederick Taylor mediante la Administración Científica?</div>
+        <div class="q-answer">Propuso analizar el trabajo científicamente para maximizar la eficiencia. Aportes: <strong>estudio de tiempos y movimientos</strong>, división y especialización del trabajo, supervisión estricta, e <strong>incentivos económicos</strong> basados en el rendimiento.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">6</span> ¿Cuáles fueron las principales críticas al modelo de Administración Científica?</div>
+        <div class="q-answer">Fue criticado por <strong>deshumanizar al trabajador</strong>, reduciéndolo a un simple ejecutor de tareas mecánicas e ignorando sus necesidades sociales y psicológicas en el entorno laboral.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">7</span> ¿Qué descubrieron los estudios de Elton Mayo y la Escuela de Relaciones Humanas?</div>
+        <div class="q-answer">Los Experimentos de Hawthorne descubrieron que la productividad no depende solo de factores técnicos, sino también de variables <strong>sociales y psicológicas</strong>. Hallazgos: importancia de la motivación, el liderazgo, el clima organizacional y la comunicación efectiva. El trabajador es un ser social con necesidades emocionales.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">8</span> ¿Cómo evolucionó la gestión de personal hacia la Administración de Recursos Humanos?</div>
+        <div class="q-answer">En la segunda mitad del siglo XX, se reconoció a las personas como <strong>recursos estratégicos</strong> que deben ser desarrollados. Se formalizaron procesos integrados: reclutamiento y selección estructurada, capacitación continua, <strong>evaluación del desempeño</strong>, planes de carrera y compensaciones estratégicas.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">9</span> ¿Por qué el talento humano es considerado actualmente una ventaja competitiva?</div>
+        <div class="q-answer">Porque es la base de la <strong>ventaja competitiva sostenible</strong>. A diferencia de la tecnología o el capital, las personas son el único elemento capaz de innovar, tomar decisiones y generar valor real. La cultura, la inteligencia emocional y la capacidad de aprendizaje son factores difíciles de replicar por la competencia.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UNIDAD II -->
+  <div class="unit-card" data-unit="2">
+    <div class="unit-header" onclick="toggleUnit(this)">
+      <h2>Unidad II: Productividad, Motivación y Compensación</h2>
+      <span class="toggle-icon">▾</span>
+    </div>
+    <div class="unit-content">
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">1</span> ¿Qué se entiende por productividad?</div>
+        <div class="q-answer">Es la relación entre los <strong>bienes o servicios producidos</strong> y los <strong>recursos empleados</strong> (tiempo, capital, talento humano). Permite evaluar el rendimiento de los recursos en relación con los resultados. Matemáticamente: generación de valor ÷ recursos empleados.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">2</span> Explique la diferencia entre eficiencia, eficacia y efectividad.</div>
+        <div class="q-answer"><strong>Eficiencia:</strong> uso óptimo de recursos, "hacer las cosas bien" minimizando costos. <strong>Eficacia:</strong> cumplimiento de objetivos, "hacer las cosas correctas" sin importar recursos. <strong>Efectividad:</strong> integración de ambas, lograr resultados usando adecuadamente los recursos.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">3</span> ¿Qué es la gestión de calidad?</div>
+        <div class="q-answer">Elemento estratégico que busca <strong>satisfacer necesidades y expectativas de los clientes</strong> cumpliendo estándares técnicos. Su filosofía: "hacer bien las cosas desde la primera vez", evitando errores, reprocesos y desperdicios. Está ligada a la cultura organizacional y al liderazgo.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">4</span> ¿Qué se entiende por mejora continua?</div>
+        <div class="q-answer">Filosofía de gestión orientada a la <strong>optimización permanente de los procesos</strong>. Proceso constante que involucra todos los niveles. Herramienta principal: <strong>ciclo PHVA</strong> (Planificar, Hacer, Verificar, Actuar) para identificar áreas de mejora, implementar soluciones y estandarizar procesos.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">5</span> ¿Qué es la motivación laboral?</div>
+        <div class="q-answer">Conjunto de <strong>fuerzas internas y externas</strong> que impulsan a una persona a actuar para alcanzar objetivos específicos. Influye directamente en el comportamiento, desempeño y compromiso de los trabajadores.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">6</span> ¿Qué factores influyen en la satisfacción laboral?</div>
+        <div class="q-answer">Grado de bienestar que siente el trabajador. Factores: <strong>ambiente laboral</strong>, relaciones interpersonales, <strong>reconocimiento</strong>, oportunidades de crecimiento, y <strong>remuneración</strong>.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">7</span> ¿Cuál es la diferencia entre motivación y satisfacción laboral?</div>
+        <div class="q-answer">La <strong>motivación</strong> es el impulso o fuerza para actuar hacia una meta. La <strong>satisfacción</strong> es el estado de bienestar experimentado respecto al trabajo. Una persona puede estar motivada pero no satisfecha, o viceversa.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">8</span> ¿Qué necesidades suelen buscar satisfacer los trabajadores dentro de una organización?</div>
+        <div class="q-answer">Cinco necesidades principales: 1) <strong>Seguridad laboral</strong>, 2) Estabilidad económica, 3) <strong>Desarrollo profesional</strong>, 4) Reconocimiento, 5) Buen ambiente de trabajo.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">9</span> ¿Qué expectativas tienen las organizaciones respecto a sus trabajadores?</div>
+        <div class="q-answer">Las empresas esperan: <strong>compromiso</strong> y responsabilidad, productividad y cumplimiento de metas, <strong>adaptabilidad al cambio</strong>.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">10</span> Diferencie trabajo individual y trabajo en equipo.</div>
+        <div class="q-answer"><strong>Trabajo individual:</strong> autonomía, especialización, responsabilidad directa. Ideal para tareas que requieren concentración. <strong>Trabajo en equipo:</strong> colaboración para un objetivo común, genera sinergia, mayor innovación y resolución de problemas complejos.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">11</span> ¿Qué son los salarios, incentivos y beneficios laborales?</div>
+        <div class="q-answer"><strong>Salario:</strong> remuneración fija por la labor. <strong>Incentivos:</strong> recompensas variables ligadas al desempeño (bonos, comisiones). <strong>Beneficios:</strong> compensación indirecta (seguro médico, licencias, capacitaciones).</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">12</span> ¿Cómo influye la compensación en la motivación de los trabajadores?</div>
+        <div class="q-answer">Es clave para alinear el comportamiento del trabajador con los objetivos. Según la <strong>Teoría de la Equidad</strong> (Adams), la motivación depende de la percepción de justicia: el trabajador compara su esfuerzo y recompensa con los de sus pares. Si percibe equidad, se motiva; si no, puede disminuir su esfuerzo o abandonar el puesto.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UNIDAD III -->
+  <div class="unit-card" data-unit="3">
+    <div class="unit-header" onclick="toggleUnit(this)">
+      <h2>Unidad III: Estudio de los Puestos</h2>
+      <span class="toggle-icon">▾</span>
+    </div>
+    <div class="unit-content">
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">1</span> ¿Qué es un puesto de trabajo?</div>
+        <div class="q-answer">Es la <strong>unidad básica de toda organización</strong>. Representa el conjunto de tareas, responsabilidades y funciones asignadas a una persona. Es un sistema interdependiente definido por su ubicación en el organigrama y su nivel jerárquico.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">2</span> ¿Qué importancia tienen los puestos para la gestión del talento humano?</div>
+        <div class="q-answer">Permiten <strong>organizar el trabajo</strong> estableciendo qué debe hacerse, cómo y quién es responsable. Son la base para reclutamiento, selección, capacitación, evaluación del desempeño y compensación. Garantizan que las personas adecuadas ocupen los puestos correctos.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">3</span> ¿Por qué es importante realizar un análisis de puestos?</div>
+        <div class="q-answer">Es el proceso que permite comprender qué se hace en un puesto y qué competencias se necesitan. Sirve de base para: planificación de RR.HH., reclutamiento y selección (definir perfil del candidato), capacitación (detectar brechas), evaluación y compensación (equidad interna).</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">4</span> ¿Qué es una descripción de puestos?</div>
+        <div class="q-answer">Documento formal que detalla las <strong>tareas, funciones, responsabilidades y condiciones operativas</strong> del trabajo. Se centra en el puesto (qué se hace), a diferencia de la especificación que se centra en la persona (qué se necesita).</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">5</span> ¿Qué elementos contiene una descripción de puestos?</div>
+        <div class="q-answer">Debe incluir: <strong>identificación</strong> del puesto (nombre, área, nivel jerárquico), <strong>objetivo principal</strong>, <strong>funciones y responsabilidades</strong>, <strong>relaciones internas y externas</strong>, y <strong>condiciones de trabajo</strong>.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">6</span> ¿Qué son las competencias laborales?</div>
+        <div class="q-answer">Conjunto de <strong>capacidades integrales</strong> que permiten desempeñarse efectivamente en un contexto laboral. Consideran no solo lo que la persona hace, sino <strong>cómo lo hace</strong> y con qué nivel de desempeño.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">7</span> Explique los componentes de las competencias: saber, saber hacer y saber ser.</div>
+        <div class="q-answer"><strong>Saber (Conocimientos):</strong> formación académica y teoría, fácil de medir. <strong>Saber hacer (Habilidades):</strong> destreza técnica y aplicación práctica. <strong>Saber ser (Actitudes y Valores):</strong> compromiso, adaptabilidad, integridad e inteligencia emocional (base del alto desempeño, suele estar oculta).</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">8</span> ¿Por qué las organizaciones modernas utilizan un enfoque basado en competencias?</div>
+        <div class="q-answer">Porque les permite ser más <strong>ágiles y adaptables</strong>. No solo contratan por tareas, sino que promueven la <strong>polivalencia</strong> del trabajador y alinean capacidades con objetivos estratégicos. Fomenta el desarrollo continuo y evaluaciones más objetivas basadas en comportamientos observables.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UNIDAD IV -->
+  <div class="unit-card" data-unit="4">
+    <div class="unit-header" onclick="toggleUnit(this)">
+      <h2>Unidad IV: Reclutamiento, Selección e Inducción</h2>
+      <span class="toggle-icon">▾</span>
+    </div>
+    <div class="unit-content">
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">1</span> ¿Qué es la planeación de recursos humanos?</div>
+        <div class="q-answer">Proceso mediante el cual las organizaciones <strong>determinan anticipadamente sus necesidades de personal</strong> para alcanzar objetivos estratégicos. Permite evitar exceso o escasez de personal y optimizar costos laborales.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">2</span> ¿Qué factores internos influyen en la previsión de personal?</div>
+        <div class="q-answer"><strong>Expansión</strong> de la empresa, nuevos proyectos, <strong>cambios tecnológicos</strong>, rotación del personal y promociones internas.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">3</span> ¿Qué factores externos influyen en la previsión de personal?</div>
+        <div class="q-answer"><strong>Situación económica</strong> del país, <strong>legislación laboral</strong>, disponibilidad de mano de obra y tendencias del mercado laboral.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">4</span> ¿Qué es el reclutamiento?</div>
+        <div class="q-answer">Conjunto de actividades diseñadas para <strong>atraer candidatos potencialmente calificados</strong> para ocupar puestos vacantes. Busca generar un grupo de aspirantes suficiente para realizar una selección adecuada.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">5</span> ¿Cuáles son los objetivos del reclutamiento?</div>
+        <div class="q-answer"><strong>Atraer candidatos idóneos</strong>, cubrir vacantes oportunamente, <strong>reducir costos</strong> de contratación, garantizar igualdad de oportunidades y fortalecer la imagen institucional.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">6</span> ¿Qué ventajas presenta el reclutamiento interno?</div>
+        <div class="q-answer"><strong>Motiva al personal</strong> actual al ofrecer crecimiento, reduce costos de contratación, disminuye el tiempo de adaptación y aprovecha la experiencia previa del trabajador en la empresa.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">7</span> ¿Qué desventajas puede generar el reclutamiento interno?</div>
+        <div class="q-answer">Puede generar <strong>conflictos internos</strong> o rivalidades entre empleados y limita la entrada de <strong>nuevas ideas e innovación</strong> al no incorporar talento externo.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">8</span> ¿Cuáles son las principales fuentes de reclutamiento externo?</div>
+        <div class="q-answer"><strong>Redes sociales laborales</strong> (LinkedIn), universidades, bolsas de trabajo, recomendaciones, agencias de empleo y <strong>plataformas digitales</strong>.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">9</span> ¿Cómo han influido las tecnologías digitales en el reclutamiento?</div>
+        <div class="q-answer">Han transformado el proceso mediante plataformas virtuales y redes profesionales. Existe una tendencia hacia la <strong>digitalización</strong> para profesionalizar los procesos de búsqueda y selección de talento.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">10</span> ¿Qué es la selección de personal?</div>
+        <div class="q-answer">Proceso de <strong>elegir al candidato más adecuado</strong> para un puesto específico, comparando los requisitos del cargo con las competencias de los aspirantes.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">11</span> Describa las principales etapas del proceso de selección.</div>
+        <div class="q-answer"><strong>1) Recepción de solicitudes:</strong> se reciben CVs y se hace primera depuración. <strong>2) Entrevistas:</strong> se evalúa comunicación, motivación y trabajo en equipo. <strong>3) Pruebas de selección:</strong> exámenes técnicos, psicotécnicos o de personalidad. <strong>4) Verificación de antecedentes:</strong> se confirman referencias y títulos.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">12</span> ¿Qué información suele analizarse en un currículum vitae?</div>
+        <div class="q-answer"><strong>Formación académica</strong>, experiencia laboral previa, habilidades y competencias técnicas, y referencias personales y laborales.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">13</span> ¿Qué es la inducción del personal?</div>
+        <div class="q-answer">Proceso de <strong>orientación inicial</strong> que recibe un nuevo trabajador para facilitar su adaptación e integración a la cultura y dinámicas de la organización.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">14</span> ¿Cuál es la importancia de la inducción para un nuevo trabajador?</div>
+        <div class="q-answer"><strong>Disminuye la ansiedad inicial</strong>, facilita la adaptación al equipo, ayuda a conocer normas y políticas, reduce errores iniciales y <strong>fortalece el compromiso</strong> y sentido de pertenencia desde el primer momento.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UNIDAD V -->
+  <div class="unit-card" data-unit="5">
+    <div class="unit-header" onclick="toggleUnit(this)">
+      <h2>Unidad V: Desarrollo del Talento y Evaluación del Desempeño</h2>
+      <span class="toggle-icon">▾</span>
+    </div>
+    <div class="unit-content">
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">1</span> ¿Qué es la aptitud?</div>
+        <div class="q-answer">Conjunto de <strong>condiciones, características o potencialidades</strong> que posee una persona para realizar funciones o actividades específicas. Es una disposición natural o adquirida que permite aprender y ejecutar tareas con eficacia.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">2</span> ¿Qué es la capacidad?</div>
+        <div class="q-answer"><strong>Habilidad real y demostrable</strong> para ejecutar una tarea concreta. Es la aplicación práctica de conocimientos, habilidades y experiencias que el trabajador ya posee.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">3</span> Explique la diferencia entre aptitud y capacidad.</div>
+        <div class="q-answer"><strong>Aptitud:</strong> potencial, orientada al futuro, puede ser innata, indica posibilidades de éxito. <strong>Capacidad:</strong> habilidad demostrada, orientada al desempeño actual, se adquiere mediante aprendizaje y experiencia, evidencia resultados concretos. Ej: se puede tener aptitud para el liderazgo pero la capacidad se desarrolla con práctica.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">4</span> Mencione ejemplos de aptitudes valoradas por las organizaciones.</div>
+        <div class="q-answer"><strong>Capacidad analítica</strong>, comunicación efectiva, <strong>liderazgo</strong>, resolución de problemas, adaptabilidad al cambio, creatividad e innovación, y <strong>trabajo en equipo</strong>.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">5</span> ¿Qué es el Diagnóstico de Necesidades de Capacitación (DNC)?</div>
+        <div class="q-answer">Proceso sistemático para <strong>identificar las brechas</strong> entre el desempeño actual de los trabajadores y el desempeño esperado. Detecta deficiencias en conocimientos, habilidades o actitudes que afectan el rendimiento.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">6</span> Explique los tres niveles del diagnóstico de capacitación.</div>
+        <div class="q-answer"><strong>Nivel Organizacional:</strong> analiza objetivos estratégicos y necesidades generales. <strong>Nivel de Puesto:</strong> se enfoca en competencias requeridas para un cargo específico. <strong>Nivel Individual:</strong> evalúa el desempeño de cada trabajador para necesidades muy específicas.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">7</span> ¿Qué es un plan de capacitación?</div>
+        <div class="q-answer">Diseño estructurado de <strong>actividades formativas</strong> de corto plazo para fortalecer competencias técnicas y blandas. Busca mejorar el desempeño actual mediante la adquisición de conocimientos y habilidades.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">8</span> ¿Qué beneficios aporta la capacitación a la organización?</div>
+        <div class="q-answer"><strong>Mayor productividad</strong> y eficiencia, reducción de errores y costos, mejora en la calidad del servicio, adaptación a nuevas tecnologías, e incremento de la <strong>motivación y satisfacción</strong> laboral.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">9</span> ¿Qué es un plan de carrera?</div>
+        <div class="q-answer">Proceso sistemático donde la organización identifica <strong>oportunidades de crecimiento profesional</strong> y establece acciones para preparar a los colaboradores para futuras responsabilidades. Alinea aspiraciones personales con necesidades institucionales.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">10</span> ¿Por qué los planes de carrera ayudan a retener talento?</div>
+        <div class="q-answer">Ofrecen una <strong>proyección de crecimiento</strong> dentro de la empresa, incrementan el compromiso organizacional y reducen la rotación. Los empleados permanecen más tiempo al sentir que la empresa invierte en su futuro.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">11</span> ¿Qué es la evaluación del desempeño?</div>
+        <div class="q-answer">Proceso <strong>sistemático y periódico</strong> que mide el rendimiento laboral en relación con metas, estándares y criterios previamente establecidos. Aprecia el comportamiento, competencias y resultados obtenidos.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">12</span> ¿Por qué es importante evaluar el desempeño de los trabajadores?</div>
+        <div class="q-answer"><strong>Para el trabajador:</strong> conocer su nivel, recibir orientación, obtener reconocimiento e identificar oportunidades de crecimiento. <strong>Para la organización:</strong> medir cumplimiento, detectar necesidades de capacitación, mejorar productividad y facilitar decisiones sobre ascensos e incentivos.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">13</span> ¿Qué es la retroalimentación?</div>
+        <div class="q-answer">Proceso donde el evaluador comunica al trabajador los <strong>resultados de su evaluación</strong>, destacando fortalezas y aspectos a mejorar. Debe ser clara, objetiva, constructiva y basada en evidencias.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">14</span> ¿Cómo pueden utilizarse los resultados de la evaluación del desempeño para mejorar la organización?</div>
+        <div class="q-answer">Para: identificar necesidades de formación, decidir <strong>promociones y ascensos</strong>, asignar reconocimientos e incentivos, diseñar planes de mejora, y orientar la <strong>planificación de carrera</strong> y crecimiento profesional.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="nav-bar">
+  <button class="nav-btn active" onclick="scrollToUnit(1)"><span class="nav-num">I</span>Personal</button>
+  <button class="nav-btn" onclick="scrollToUnit(2)"><span class="nav-num">II</span>Productividad</button>
+  <button class="nav-btn" onclick="scrollToUnit(3)"><span class="nav-num">III</span>Puestos</button>
+  <button class="nav-btn" onclick="scrollToUnit(4)"><span class="nav-num">IV</span>Reclutamiento</button>
+  <button class="nav-btn" onclick="scrollToUnit(5)"><span class="nav-num">V</span>Desarrollo</button>
+</div>
+
+<script>
+  function toggleUnit(el) {
+    el.classList.toggle('active');
+    const content = el.nextElementSibling;
+    content.classList.toggle('open');
+    updateProgress();
+  }
+
+  function scrollToUnit(n) {
+    const card = document.querySelector(`[data-unit="${n}"]`);
+    if (card) {
+      card.scrollIntoView({behavior:'smooth', block:'start'});
+      const header = card.querySelector('.unit-header');
+      const content = card.querySelector('.unit-content');
+      if (!content.classList.contains('open')) {
+        header.classList.add('active');
+        content.classList.add('open');
+      }
+    }
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+
+  function updateProgress() {
+    const total = 63;
+    let done = 0;
+    document.querySelectorAll('.q-item').forEach(item => {
+      const content = item.closest('.unit-content');
+      if (content && content.classList.contains('open')) {
+        done++;
+      }
+    });
+    const pct = Math.round((done / total) * 100);
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('progressText').textContent = done + ' / ' + total;
+  }
+
+  updateProgress();
+</script>
+</body>
+</html>
