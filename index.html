@@ -3,388 +3,469 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Guía de Estudio - Examen Administración III</title>
+<title>Admin III - Nebula Study</title>
 <style>
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f0f2f5;color:#333;padding-bottom:60px}
-  .header{background:linear-gradient(135deg,#1a237e,#0d47a1);color:#fff;padding:30px 20px;text-align:center;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,.2)}
-  .header h1{font-size:1.6em;margin-bottom:5px}
-  .header p{font-size:.9em;opacity:.9}
-  .header .badge{display:inline-block;background:rgba(255,255,255,.15);padding:4px 14px;border-radius:20px;font-size:.8em;margin-top:8px}
-  .container{max-width:860px;margin:20px auto;padding:0 15px}
-  .unit-card{background:#fff;border-radius:12px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,.08);overflow:hidden}
-  .unit-header{background:linear-gradient(135deg,#283593,#1565c0);color:#fff;padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:.3s}
-  .unit-header:hover{background:linear-gradient(135deg,#1a237e,#0d47a1)}
-  .unit-header h2{font-size:1.1em;font-weight:600}
-  .unit-header .toggle-icon{font-size:1.4em;transition:transform .3s;font-weight:700}
-  .unit-header.active .toggle-icon{transform:rotate(180deg)}
-  .unit-content{display:none;padding:10px 20px 20px}
-  .unit-content.open{display:block}
-  .q-item{border-bottom:1px solid #e8eaf6;padding:15px 0}
-  .q-item:last-child{border-bottom:none}
-  .q-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:#e8eaf6;color:#283593;border-radius:50%;font-size:.8em;font-weight:700;margin-right:8px;flex-shrink:0}
-  .q-text{font-weight:600;color:#1a237e;font-size:.95em;margin-bottom:8px;display:flex;align-items:flex-start}
-  .q-text .q-num{margin-top:1px}
-  .q-answer{color:#444;font-size:.9em;line-height:1.6;padding-left:36px}
-  .q-answer ul{margin:6px 0 6px 20px}
-  .q-answer li{margin-bottom:4px}
-  .q-answer strong{color:#1a237e}
-  .nav-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #ddd;display:flex;overflow-x:auto;z-index:100;box-shadow:0 -2px 10px rgba(0,0,0,.1)}
-  .nav-btn{flex:1;min-width:60px;padding:10px 8px;text-align:center;font-size:.75em;color:#666;cursor:pointer;border:none;background:none;transition:.2s;text-decoration:none}
-  .nav-btn:hover{background:#e8eaf6;color:#1a237e}
-  .nav-btn.active{color:#1a237e;font-weight:600;border-top:3px solid #1a237e}
-  .nav-btn .nav-num{display:block;font-size:.9em;font-weight:700}
-  @media(max-width:600px){
-    .header h1{font-size:1.3em}
-    .unit-header h2{font-size:1em}
-    .q-answer{padding-left:0;margin-top:6px}
-    .q-text{flex-wrap:wrap}
-  }
-  .progress-wrap{background:#e0e0e0;border-radius:10px;height:6px;margin:10px 0 5px;overflow:hidden}
-  .progress-bar{background:#4caf50;height:100%;border-radius:10px;width:0;transition:width .5s}
-  .progress-text{font-size:.8em;color:#666;text-align:center}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0e27;--bg2:#1a1040;--bg3:#0d0221;--card:rgba(255,255,255,0.04);--card-hover:rgba(255,255,255,0.07);--border:rgba(255,255,255,0.06);--text:#e0e0ff;--text2:#9090c0;--accent:#00d4ff;--accent2:#b388ff;--gold:#ffd54f;--green:#4caf50;--sidebar-w:220px;--radius:14px;--shadow:0 8px 32px rgba(0,0,0,0.4)}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;min-height:100vh}
+/* CANVAS BACKGROUND */
+#starfield{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+/* LAYOUT */
+.app{position:relative;z-index:1;display:flex;min-height:100vh}
+/* SIDEBAR */
+.sidebar{width:var(--sidebar-w);background:rgba(10,14,39,0.85);backdrop-filter:blur(20px);border-right:1px solid var(--border);padding:20px 12px;display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:10;flex-shrink:0;transition:transform .3s}
+.sidebar-brand{padding:0 8px 18px;border-bottom:1px solid var(--border);margin-bottom:14px}
+.sidebar-brand h1{font-size:1.1em;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.3}
+.sidebar-brand small{font-size:.7em;color:var(--text2);display:block;-webkit-text-fill-color:var(--text2)}
+.sidebar-nav{flex:1;overflow-y:auto}
+.unit-tab{display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:10px;cursor:pointer;transition:.25s;margin-bottom:4px;border:none;background:none;color:var(--text2);width:100%;text-align:left;font-size:.82em;font-family:inherit}
+.unit-tab:hover{background:var(--card);color:var(--text)}
+.unit-tab.active{background:linear-gradient(135deg,rgba(0,212,255,0.12),rgba(179,136,255,0.08));color:var(--accent);font-weight:600}
+.unit-tab .icon{font-size:1.2em}
+.unit-tab .label{flex:1}
+.unit-tab .q-count{font-size:.75em;opacity:.6}
+.unit-tab .check{display:none;font-size:.7em}
+.unit-tab .check.done{display:inline;color:var(--green)}
+.study-progress{margin:12px 0;padding:12px;background:var(--card);border-radius:10px;border:1px solid var(--border)}
+.study-progress .label{font-size:.72em;color:var(--text2);margin-bottom:6px}
+.prog-bar{height:4px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;margin-bottom:4px}
+.prog-bar-inner{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0;transition:width .5s}
+.study-progress .pct{font-size:.7em;color:var(--text2);text-align:right}
+/* SIDEBAR TOGGLE (mobile) */
+.sidebar-toggle{display:none;position:fixed;top:14px;left:14px;z-index:20;background:var(--card);backdrop-filter:blur(12px);border:1px solid var(--border);color:var(--text);width:40px;height:40px;border-radius:10px;cursor:pointer;font-size:1.2em;align-items:center;justify-content:center}
+/* MAIN */
+.main{flex:1;margin-left:var(--sidebar-w);padding:30px 40px 80px;position:relative;z-index:1}
+.main-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+.main-header h2{font-size:1.3em;font-weight:700;background:linear-gradient(135deg,var(--text),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.main-header h2 .unit-sub{display:block;font-size:.6em;font-weight:400;color:var(--text2);-webkit-text-fill-color:var(--text2);margin-top:2px}
+.controls{display:flex;gap:8px;flex-wrap:wrap}
+.ctrl-btn{background:var(--card);border:1px solid var(--border);color:var(--text2);padding:8px 14px;border-radius:8px;cursor:pointer;font-size:.8em;font-family:inherit;transition:.2s;display:flex;align-items:center;gap:6px}
+.ctrl-btn:hover{background:var(--card-hover);color:var(--text)}
+.ctrl-btn.active{background:rgba(0,212,255,0.12);border-color:var(--accent);color:var(--accent)}
+.search-wrap{position:relative;flex:1;min-width:180px}
+.search-wrap input{width:100%;background:var(--card);border:1px solid var(--border);color:var(--text);padding:8px 14px 8px 34px;border-radius:8px;font-size:.82em;font-family:inherit;outline:none;transition:.2s}
+.search-wrap input:focus{border-color:var(--accent);background:var(--card-hover)}
+.search-wrap .icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text2);font-size:.85em}
+/* QUESTIONS */
+.questions{display:flex;flex-direction:column;gap:10px}
+.q-card{background:var(--card);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;transition:.3s;cursor:pointer;position:relative}
+.q-card:hover{background:var(--card-hover);border-color:rgba(255,255,255,0.1)}
+.q-card.studied{border-left:3px solid var(--green)}
+.q-card.hidden{display:none}
+.q-card-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:6px}
+.q-card .num{width:28px;height:28px;min-width:28px;border-radius:50%;background:rgba(0,212,255,0.08);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:.75em;font-weight:700}
+.q-card .q-text{font-weight:600;font-size:.92em;line-height:1.5;padding-top:3px}
+.q-card .q-answer{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s, margin .3s;opacity:0;margin-top:0;padding-left:38px;font-size:.85em;line-height:1.7;color:var(--text2)}
+.q-card.open .q-answer{max-height:800px;opacity:1;margin-top:10px}
+.q-answer strong{color:var(--accent2)}
+.q-answer ul{margin:5px 0 5px 18px;list-style:none}
+.q-answer ul li::before{content:"✦";color:var(--accent);margin-right:6px;font-size:.7em}
+.q-card .study-toggle{position:absolute;top:14px;right:14px;width:22px;height:22px;border-radius:6px;border:2px solid var(--border);background:none;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;font-size:.6em;color:transparent}
+.q-card.studied .study-toggle{border-color:var(--green);background:var(--green);color:#fff}
+/* FLASHCARD MODE */
+.flashcard-mode .q-answer{display:none!important}
+.flashcard-mode .q-card.open .q-answer{display:block!important}
+/* COUNTER */
+.counter{font-size:.78em;color:var(--text2);margin-bottom:14px}
+/* RANDOM BTN */
+.random-btn{position:fixed;bottom:30px;right:30px;z-index:10;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#fff;font-size:1.3em;cursor:pointer;box-shadow:0 4px 20px rgba(0,212,255,0.3);transition:.3s;display:flex;align-items:center;justify-content:center}
+.random-btn:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(0,212,255,0.45)}
+/* NOTIF */
+.toast{position:fixed;bottom:90px;right:30px;z-index:20;background:rgba(10,14,39,0.95);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:12px;padding:14px 20px;max-width:320px;font-size:.82em;line-height:1.5;opacity:0;transform:translateY(20px);transition:.4s;pointer-events:none}
+.toast.show{opacity:1;transform:translateY(0)}
+.toast .highlight{color:var(--accent);font-weight:600}
+/* SCROLLBAR */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
+::-webkit-scrollbar-thumb:hover{background:var(--text2)}
+/* RESPONSIVE */
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%);width:260px}
+  .sidebar.open{transform:translateX(0)}
+  .sidebar-toggle{display:flex}
+  .main{margin-left:0;padding:20px 16px 90px}
+  .main-header{flex-direction:column;align-items:stretch}
+  .controls{justify-content:stretch}
+  .search-wrap{min-width:0}
+  .random-btn{bottom:20px;right:20px;width:46px;height:46px;font-size:1.1em}
+}
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:60px 20px;color:var(--text2)}
+.empty-state .icon{font-size:3em;margin-bottom:14px;opacity:.4}
+.empty-state p{font-size:.9em}
 </style>
 </head>
 <body>
 
-<div class="header">
-  <h1>📘 Administración III</h1>
-  <p>Guía de Estudio - Preguntas de Retroalimentación</p>
-  <div class="badge">5 Unidades · 63 Preguntas</div>
-  <div class="progress-wrap" style="max-width:300px;margin:10px auto 0">
-    <div class="progress-bar" id="progressBar"></div>
-  </div>
-  <div class="progress-text" id="progressText">0 / 63</div>
+<canvas id="starfield"></canvas>
+
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Menú">☰</button>
+
+<div class="app">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <h1>☄️ Admin III</h1>
+      <small>Nebula Study · 63 preguntas</small>
+    </div>
+    <nav class="sidebar-nav" id="unitNav"></nav>
+    <div class="study-progress">
+      <div class="label">📊 Progreso general</div>
+      <div class="prog-bar"><div class="prog-bar-inner" id="overallBar"></div></div>
+      <div class="pct" id="overallPct">0%</div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main" id="main">
+    <div class="main-header">
+      <h2 id="unitTitle">
+        Unidad I: Dirección de Personal
+        <span class="unit-sub">Gestión del Talento Humano</span>
+      </h2>
+      <div class="controls">
+        <div class="search-wrap">
+          <span class="icon">🔍</span>
+          <input type="text" id="searchInput" placeholder="Buscar preguntas..." autocomplete="off">
+        </div>
+        <button class="ctrl-btn" id="flashToggle" title="Modo Flashcard">🃏 Flashcards</button>
+      </div>
+    </div>
+    <div class="counter" id="counter"></div>
+    <div class="questions" id="questionsContainer"></div>
+  </main>
 </div>
 
-<div class="container" id="app">
-
-  <!-- UNIDAD I -->
-  <div class="unit-card" data-unit="1">
-    <div class="unit-header" onclick="toggleUnit(this)">
-      <h2>Unidad I: Dirección de Personal y Gestión del Talento Humano</h2>
-      <span class="toggle-icon">▾</span>
-    </div>
-    <div class="unit-content">
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">1</span> ¿Qué es la Dirección de Personal y cuál es su objetivo dentro de las organizaciones?</div>
-        <div class="q-answer">Es el conjunto de políticas, prácticas y procesos orientados a <strong>administrar, desarrollar y retener</strong> a las personas en una organización. Su objetivo general es analizar la evolución y el rol estratégico de las personas para asegurar que contribuyan al éxito institucional. Objetivos específicos: atraer y retener talento, desarrollar capacidades, mejorar el desempeño y la productividad, garantizar cumplimiento legal y promover un clima organizacional positivo.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">2</span> ¿Por qué actualmente se utiliza el término Gestión del Talento Humano?</div>
-        <div class="q-answer">Porque el enfoque evolucionó de una administración reactiva y administrativa a una <strong>gestión proactiva y estratégica</strong>. En el contexto de globalización y transformación digital, las personas son el principal activo generador de valor y la fuente de ventaja competitiva. El trabajador es visto como un <strong>socio estratégico</strong> y agente de innovación.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">3</span> Explique la diferencia entre administrar personal y gestionar talento.</div>
-        <div class="q-answer"><strong>Administrar personal</strong> (enfoque clásico): ve al trabajador como factor de producción y costo operativo, con control disciplinario y tareas rígidas. <strong>Gestionar talento</strong> (enfoque moderno): ve al trabajador como socio estratégico y generador de conocimiento, buscando alineación con la estrategia organizacional mediante liderazgo transformador y gestión por competencias.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">4</span> Describa las características de la Dirección de Personal durante la Revolución Industrial.</div>
-        <div class="q-answer">Enfoque productivista: interés centrado en la producción masiva y eficiencia mecánica. Jornadas de <strong>12 a 16 horas</strong>, escasas condiciones de seguridad, trabajo repetitivo y mecanizado. No existían departamentos de personal formales; el trabajador era considerado similar a una máquina o materia prima.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">5</span> ¿Qué aportes realizó Frederick Taylor mediante la Administración Científica?</div>
-        <div class="q-answer">Propuso analizar el trabajo científicamente para maximizar la eficiencia. Aportes: <strong>estudio de tiempos y movimientos</strong>, división y especialización del trabajo, supervisión estricta, e <strong>incentivos económicos</strong> basados en el rendimiento.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">6</span> ¿Cuáles fueron las principales críticas al modelo de Administración Científica?</div>
-        <div class="q-answer">Fue criticado por <strong>deshumanizar al trabajador</strong>, reduciéndolo a un simple ejecutor de tareas mecánicas e ignorando sus necesidades sociales y psicológicas en el entorno laboral.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">7</span> ¿Qué descubrieron los estudios de Elton Mayo y la Escuela de Relaciones Humanas?</div>
-        <div class="q-answer">Los Experimentos de Hawthorne descubrieron que la productividad no depende solo de factores técnicos, sino también de variables <strong>sociales y psicológicas</strong>. Hallazgos: importancia de la motivación, el liderazgo, el clima organizacional y la comunicación efectiva. El trabajador es un ser social con necesidades emocionales.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">8</span> ¿Cómo evolucionó la gestión de personal hacia la Administración de Recursos Humanos?</div>
-        <div class="q-answer">En la segunda mitad del siglo XX, se reconoció a las personas como <strong>recursos estratégicos</strong> que deben ser desarrollados. Se formalizaron procesos integrados: reclutamiento y selección estructurada, capacitación continua, <strong>evaluación del desempeño</strong>, planes de carrera y compensaciones estratégicas.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">9</span> ¿Por qué el talento humano es considerado actualmente una ventaja competitiva?</div>
-        <div class="q-answer">Porque es la base de la <strong>ventaja competitiva sostenible</strong>. A diferencia de la tecnología o el capital, las personas son el único elemento capaz de innovar, tomar decisiones y generar valor real. La cultura, la inteligencia emocional y la capacidad de aprendizaje son factores difíciles de replicar por la competencia.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- UNIDAD II -->
-  <div class="unit-card" data-unit="2">
-    <div class="unit-header" onclick="toggleUnit(this)">
-      <h2>Unidad II: Productividad, Motivación y Compensación</h2>
-      <span class="toggle-icon">▾</span>
-    </div>
-    <div class="unit-content">
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">1</span> ¿Qué se entiende por productividad?</div>
-        <div class="q-answer">Es la relación entre los <strong>bienes o servicios producidos</strong> y los <strong>recursos empleados</strong> (tiempo, capital, talento humano). Permite evaluar el rendimiento de los recursos en relación con los resultados. Matemáticamente: generación de valor ÷ recursos empleados.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">2</span> Explique la diferencia entre eficiencia, eficacia y efectividad.</div>
-        <div class="q-answer"><strong>Eficiencia:</strong> uso óptimo de recursos, "hacer las cosas bien" minimizando costos. <strong>Eficacia:</strong> cumplimiento de objetivos, "hacer las cosas correctas" sin importar recursos. <strong>Efectividad:</strong> integración de ambas, lograr resultados usando adecuadamente los recursos.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">3</span> ¿Qué es la gestión de calidad?</div>
-        <div class="q-answer">Elemento estratégico que busca <strong>satisfacer necesidades y expectativas de los clientes</strong> cumpliendo estándares técnicos. Su filosofía: "hacer bien las cosas desde la primera vez", evitando errores, reprocesos y desperdicios. Está ligada a la cultura organizacional y al liderazgo.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">4</span> ¿Qué se entiende por mejora continua?</div>
-        <div class="q-answer">Filosofía de gestión orientada a la <strong>optimización permanente de los procesos</strong>. Proceso constante que involucra todos los niveles. Herramienta principal: <strong>ciclo PHVA</strong> (Planificar, Hacer, Verificar, Actuar) para identificar áreas de mejora, implementar soluciones y estandarizar procesos.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">5</span> ¿Qué es la motivación laboral?</div>
-        <div class="q-answer">Conjunto de <strong>fuerzas internas y externas</strong> que impulsan a una persona a actuar para alcanzar objetivos específicos. Influye directamente en el comportamiento, desempeño y compromiso de los trabajadores.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">6</span> ¿Qué factores influyen en la satisfacción laboral?</div>
-        <div class="q-answer">Grado de bienestar que siente el trabajador. Factores: <strong>ambiente laboral</strong>, relaciones interpersonales, <strong>reconocimiento</strong>, oportunidades de crecimiento, y <strong>remuneración</strong>.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">7</span> ¿Cuál es la diferencia entre motivación y satisfacción laboral?</div>
-        <div class="q-answer">La <strong>motivación</strong> es el impulso o fuerza para actuar hacia una meta. La <strong>satisfacción</strong> es el estado de bienestar experimentado respecto al trabajo. Una persona puede estar motivada pero no satisfecha, o viceversa.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">8</span> ¿Qué necesidades suelen buscar satisfacer los trabajadores dentro de una organización?</div>
-        <div class="q-answer">Cinco necesidades principales: 1) <strong>Seguridad laboral</strong>, 2) Estabilidad económica, 3) <strong>Desarrollo profesional</strong>, 4) Reconocimiento, 5) Buen ambiente de trabajo.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">9</span> ¿Qué expectativas tienen las organizaciones respecto a sus trabajadores?</div>
-        <div class="q-answer">Las empresas esperan: <strong>compromiso</strong> y responsabilidad, productividad y cumplimiento de metas, <strong>adaptabilidad al cambio</strong>.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">10</span> Diferencie trabajo individual y trabajo en equipo.</div>
-        <div class="q-answer"><strong>Trabajo individual:</strong> autonomía, especialización, responsabilidad directa. Ideal para tareas que requieren concentración. <strong>Trabajo en equipo:</strong> colaboración para un objetivo común, genera sinergia, mayor innovación y resolución de problemas complejos.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">11</span> ¿Qué son los salarios, incentivos y beneficios laborales?</div>
-        <div class="q-answer"><strong>Salario:</strong> remuneración fija por la labor. <strong>Incentivos:</strong> recompensas variables ligadas al desempeño (bonos, comisiones). <strong>Beneficios:</strong> compensación indirecta (seguro médico, licencias, capacitaciones).</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">12</span> ¿Cómo influye la compensación en la motivación de los trabajadores?</div>
-        <div class="q-answer">Es clave para alinear el comportamiento del trabajador con los objetivos. Según la <strong>Teoría de la Equidad</strong> (Adams), la motivación depende de la percepción de justicia: el trabajador compara su esfuerzo y recompensa con los de sus pares. Si percibe equidad, se motiva; si no, puede disminuir su esfuerzo o abandonar el puesto.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- UNIDAD III -->
-  <div class="unit-card" data-unit="3">
-    <div class="unit-header" onclick="toggleUnit(this)">
-      <h2>Unidad III: Estudio de los Puestos</h2>
-      <span class="toggle-icon">▾</span>
-    </div>
-    <div class="unit-content">
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">1</span> ¿Qué es un puesto de trabajo?</div>
-        <div class="q-answer">Es la <strong>unidad básica de toda organización</strong>. Representa el conjunto de tareas, responsabilidades y funciones asignadas a una persona. Es un sistema interdependiente definido por su ubicación en el organigrama y su nivel jerárquico.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">2</span> ¿Qué importancia tienen los puestos para la gestión del talento humano?</div>
-        <div class="q-answer">Permiten <strong>organizar el trabajo</strong> estableciendo qué debe hacerse, cómo y quién es responsable. Son la base para reclutamiento, selección, capacitación, evaluación del desempeño y compensación. Garantizan que las personas adecuadas ocupen los puestos correctos.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">3</span> ¿Por qué es importante realizar un análisis de puestos?</div>
-        <div class="q-answer">Es el proceso que permite comprender qué se hace en un puesto y qué competencias se necesitan. Sirve de base para: planificación de RR.HH., reclutamiento y selección (definir perfil del candidato), capacitación (detectar brechas), evaluación y compensación (equidad interna).</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">4</span> ¿Qué es una descripción de puestos?</div>
-        <div class="q-answer">Documento formal que detalla las <strong>tareas, funciones, responsabilidades y condiciones operativas</strong> del trabajo. Se centra en el puesto (qué se hace), a diferencia de la especificación que se centra en la persona (qué se necesita).</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">5</span> ¿Qué elementos contiene una descripción de puestos?</div>
-        <div class="q-answer">Debe incluir: <strong>identificación</strong> del puesto (nombre, área, nivel jerárquico), <strong>objetivo principal</strong>, <strong>funciones y responsabilidades</strong>, <strong>relaciones internas y externas</strong>, y <strong>condiciones de trabajo</strong>.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">6</span> ¿Qué son las competencias laborales?</div>
-        <div class="q-answer">Conjunto de <strong>capacidades integrales</strong> que permiten desempeñarse efectivamente en un contexto laboral. Consideran no solo lo que la persona hace, sino <strong>cómo lo hace</strong> y con qué nivel de desempeño.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">7</span> Explique los componentes de las competencias: saber, saber hacer y saber ser.</div>
-        <div class="q-answer"><strong>Saber (Conocimientos):</strong> formación académica y teoría, fácil de medir. <strong>Saber hacer (Habilidades):</strong> destreza técnica y aplicación práctica. <strong>Saber ser (Actitudes y Valores):</strong> compromiso, adaptabilidad, integridad e inteligencia emocional (base del alto desempeño, suele estar oculta).</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">8</span> ¿Por qué las organizaciones modernas utilizan un enfoque basado en competencias?</div>
-        <div class="q-answer">Porque les permite ser más <strong>ágiles y adaptables</strong>. No solo contratan por tareas, sino que promueven la <strong>polivalencia</strong> del trabajador y alinean capacidades con objetivos estratégicos. Fomenta el desarrollo continuo y evaluaciones más objetivas basadas en comportamientos observables.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- UNIDAD IV -->
-  <div class="unit-card" data-unit="4">
-    <div class="unit-header" onclick="toggleUnit(this)">
-      <h2>Unidad IV: Reclutamiento, Selección e Inducción</h2>
-      <span class="toggle-icon">▾</span>
-    </div>
-    <div class="unit-content">
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">1</span> ¿Qué es la planeación de recursos humanos?</div>
-        <div class="q-answer">Proceso mediante el cual las organizaciones <strong>determinan anticipadamente sus necesidades de personal</strong> para alcanzar objetivos estratégicos. Permite evitar exceso o escasez de personal y optimizar costos laborales.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">2</span> ¿Qué factores internos influyen en la previsión de personal?</div>
-        <div class="q-answer"><strong>Expansión</strong> de la empresa, nuevos proyectos, <strong>cambios tecnológicos</strong>, rotación del personal y promociones internas.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">3</span> ¿Qué factores externos influyen en la previsión de personal?</div>
-        <div class="q-answer"><strong>Situación económica</strong> del país, <strong>legislación laboral</strong>, disponibilidad de mano de obra y tendencias del mercado laboral.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">4</span> ¿Qué es el reclutamiento?</div>
-        <div class="q-answer">Conjunto de actividades diseñadas para <strong>atraer candidatos potencialmente calificados</strong> para ocupar puestos vacantes. Busca generar un grupo de aspirantes suficiente para realizar una selección adecuada.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">5</span> ¿Cuáles son los objetivos del reclutamiento?</div>
-        <div class="q-answer"><strong>Atraer candidatos idóneos</strong>, cubrir vacantes oportunamente, <strong>reducir costos</strong> de contratación, garantizar igualdad de oportunidades y fortalecer la imagen institucional.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">6</span> ¿Qué ventajas presenta el reclutamiento interno?</div>
-        <div class="q-answer"><strong>Motiva al personal</strong> actual al ofrecer crecimiento, reduce costos de contratación, disminuye el tiempo de adaptación y aprovecha la experiencia previa del trabajador en la empresa.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">7</span> ¿Qué desventajas puede generar el reclutamiento interno?</div>
-        <div class="q-answer">Puede generar <strong>conflictos internos</strong> o rivalidades entre empleados y limita la entrada de <strong>nuevas ideas e innovación</strong> al no incorporar talento externo.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">8</span> ¿Cuáles son las principales fuentes de reclutamiento externo?</div>
-        <div class="q-answer"><strong>Redes sociales laborales</strong> (LinkedIn), universidades, bolsas de trabajo, recomendaciones, agencias de empleo y <strong>plataformas digitales</strong>.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">9</span> ¿Cómo han influido las tecnologías digitales en el reclutamiento?</div>
-        <div class="q-answer">Han transformado el proceso mediante plataformas virtuales y redes profesionales. Existe una tendencia hacia la <strong>digitalización</strong> para profesionalizar los procesos de búsqueda y selección de talento.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">10</span> ¿Qué es la selección de personal?</div>
-        <div class="q-answer">Proceso de <strong>elegir al candidato más adecuado</strong> para un puesto específico, comparando los requisitos del cargo con las competencias de los aspirantes.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">11</span> Describa las principales etapas del proceso de selección.</div>
-        <div class="q-answer"><strong>1) Recepción de solicitudes:</strong> se reciben CVs y se hace primera depuración. <strong>2) Entrevistas:</strong> se evalúa comunicación, motivación y trabajo en equipo. <strong>3) Pruebas de selección:</strong> exámenes técnicos, psicotécnicos o de personalidad. <strong>4) Verificación de antecedentes:</strong> se confirman referencias y títulos.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">12</span> ¿Qué información suele analizarse en un currículum vitae?</div>
-        <div class="q-answer"><strong>Formación académica</strong>, experiencia laboral previa, habilidades y competencias técnicas, y referencias personales y laborales.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">13</span> ¿Qué es la inducción del personal?</div>
-        <div class="q-answer">Proceso de <strong>orientación inicial</strong> que recibe un nuevo trabajador para facilitar su adaptación e integración a la cultura y dinámicas de la organización.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">14</span> ¿Cuál es la importancia de la inducción para un nuevo trabajador?</div>
-        <div class="q-answer"><strong>Disminuye la ansiedad inicial</strong>, facilita la adaptación al equipo, ayuda a conocer normas y políticas, reduce errores iniciales y <strong>fortalece el compromiso</strong> y sentido de pertenencia desde el primer momento.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- UNIDAD V -->
-  <div class="unit-card" data-unit="5">
-    <div class="unit-header" onclick="toggleUnit(this)">
-      <h2>Unidad V: Desarrollo del Talento y Evaluación del Desempeño</h2>
-      <span class="toggle-icon">▾</span>
-    </div>
-    <div class="unit-content">
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">1</span> ¿Qué es la aptitud?</div>
-        <div class="q-answer">Conjunto de <strong>condiciones, características o potencialidades</strong> que posee una persona para realizar funciones o actividades específicas. Es una disposición natural o adquirida que permite aprender y ejecutar tareas con eficacia.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">2</span> ¿Qué es la capacidad?</div>
-        <div class="q-answer"><strong>Habilidad real y demostrable</strong> para ejecutar una tarea concreta. Es la aplicación práctica de conocimientos, habilidades y experiencias que el trabajador ya posee.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">3</span> Explique la diferencia entre aptitud y capacidad.</div>
-        <div class="q-answer"><strong>Aptitud:</strong> potencial, orientada al futuro, puede ser innata, indica posibilidades de éxito. <strong>Capacidad:</strong> habilidad demostrada, orientada al desempeño actual, se adquiere mediante aprendizaje y experiencia, evidencia resultados concretos. Ej: se puede tener aptitud para el liderazgo pero la capacidad se desarrolla con práctica.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">4</span> Mencione ejemplos de aptitudes valoradas por las organizaciones.</div>
-        <div class="q-answer"><strong>Capacidad analítica</strong>, comunicación efectiva, <strong>liderazgo</strong>, resolución de problemas, adaptabilidad al cambio, creatividad e innovación, y <strong>trabajo en equipo</strong>.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">5</span> ¿Qué es el Diagnóstico de Necesidades de Capacitación (DNC)?</div>
-        <div class="q-answer">Proceso sistemático para <strong>identificar las brechas</strong> entre el desempeño actual de los trabajadores y el desempeño esperado. Detecta deficiencias en conocimientos, habilidades o actitudes que afectan el rendimiento.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">6</span> Explique los tres niveles del diagnóstico de capacitación.</div>
-        <div class="q-answer"><strong>Nivel Organizacional:</strong> analiza objetivos estratégicos y necesidades generales. <strong>Nivel de Puesto:</strong> se enfoca en competencias requeridas para un cargo específico. <strong>Nivel Individual:</strong> evalúa el desempeño de cada trabajador para necesidades muy específicas.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">7</span> ¿Qué es un plan de capacitación?</div>
-        <div class="q-answer">Diseño estructurado de <strong>actividades formativas</strong> de corto plazo para fortalecer competencias técnicas y blandas. Busca mejorar el desempeño actual mediante la adquisición de conocimientos y habilidades.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">8</span> ¿Qué beneficios aporta la capacitación a la organización?</div>
-        <div class="q-answer"><strong>Mayor productividad</strong> y eficiencia, reducción de errores y costos, mejora en la calidad del servicio, adaptación a nuevas tecnologías, e incremento de la <strong>motivación y satisfacción</strong> laboral.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">9</span> ¿Qué es un plan de carrera?</div>
-        <div class="q-answer">Proceso sistemático donde la organización identifica <strong>oportunidades de crecimiento profesional</strong> y establece acciones para preparar a los colaboradores para futuras responsabilidades. Alinea aspiraciones personales con necesidades institucionales.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">10</span> ¿Por qué los planes de carrera ayudan a retener talento?</div>
-        <div class="q-answer">Ofrecen una <strong>proyección de crecimiento</strong> dentro de la empresa, incrementan el compromiso organizacional y reducen la rotación. Los empleados permanecen más tiempo al sentir que la empresa invierte en su futuro.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">11</span> ¿Qué es la evaluación del desempeño?</div>
-        <div class="q-answer">Proceso <strong>sistemático y periódico</strong> que mide el rendimiento laboral en relación con metas, estándares y criterios previamente establecidos. Aprecia el comportamiento, competencias y resultados obtenidos.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">12</span> ¿Por qué es importante evaluar el desempeño de los trabajadores?</div>
-        <div class="q-answer"><strong>Para el trabajador:</strong> conocer su nivel, recibir orientación, obtener reconocimiento e identificar oportunidades de crecimiento. <strong>Para la organización:</strong> medir cumplimiento, detectar necesidades de capacitación, mejorar productividad y facilitar decisiones sobre ascensos e incentivos.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">13</span> ¿Qué es la retroalimentación?</div>
-        <div class="q-answer">Proceso donde el evaluador comunica al trabajador los <strong>resultados de su evaluación</strong>, destacando fortalezas y aspectos a mejorar. Debe ser clara, objetiva, constructiva y basada en evidencias.</div>
-      </div>
-      <div class="q-item">
-        <div class="q-text"><span class="q-num">14</span> ¿Cómo pueden utilizarse los resultados de la evaluación del desempeño para mejorar la organización?</div>
-        <div class="q-answer">Para: identificar necesidades de formación, decidir <strong>promociones y ascensos</strong>, asignar reconocimientos e incentivos, diseñar planes de mejora, y orientar la <strong>planificación de carrera</strong> y crecimiento profesional.</div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<div class="nav-bar">
-  <button class="nav-btn active" onclick="scrollToUnit(1)"><span class="nav-num">I</span>Personal</button>
-  <button class="nav-btn" onclick="scrollToUnit(2)"><span class="nav-num">II</span>Productividad</button>
-  <button class="nav-btn" onclick="scrollToUnit(3)"><span class="nav-num">III</span>Puestos</button>
-  <button class="nav-btn" onclick="scrollToUnit(4)"><span class="nav-num">IV</span>Reclutamiento</button>
-  <button class="nav-btn" onclick="scrollToUnit(5)"><span class="nav-num">V</span>Desarrollo</button>
-</div>
+<button class="random-btn" id="randomBtn" title="Pregunta aleatoria">🎲</button>
+<div class="toast" id="toast"></div>
 
 <script>
-  function toggleUnit(el) {
-    el.classList.toggle('active');
-    const content = el.nextElementSibling;
-    content.classList.toggle('open');
-    updateProgress();
+// ========== DATA ==========
+const UNITS = [
+  {
+    id:1, icon:'🧭', title:'Unidad I', subtitle:'Dirección de Personal y Gestión del Talento Humano',
+    questions:[
+      {num:1,q:'¿Qué es la Dirección de Personal y cuál es su objetivo dentro de las organizaciones?',
+       a:'Es el conjunto de políticas, prácticas y procesos orientados a <strong>administrar, desarrollar y retener</strong> a las personas en una organización. Su objetivo es analizar la evolución y el rol estratégico de las personas para asegurar su contribución al éxito institucional. Objetivos específicos: atraer y retener talento, desarrollar capacidades, mejorar el desempeño y productividad, garantizar cumplimiento legal y promover un clima organizacional positivo.'},
+      {num:2,q:'¿Por qué actualmente se utiliza el término Gestión del Talento Humano?',
+       a:'Porque el enfoque evolucionó de una administración reactiva a una <strong>gestión proactiva y estratégica</strong>. Las personas son el principal activo generador de valor y fuente de ventaja competitiva. El trabajador es visto como un <strong>socio estratégico</strong> y agente de innovación.'},
+      {num:3,q:'Explique la diferencia entre administrar personal y gestionar talento.',
+       a:'<strong>Administrar personal</strong> (enfoque clásico): ve al trabajador como factor de producción y costo operativo, control disciplinario, tareas rígidas. <strong>Gestionar talento</strong> (enfoque moderno): ve al trabajador como socio estratégico y generador de conocimiento, con liderazgo transformador y gestión por competencias.'},
+      {num:4,q:'Describa las características de la Dirección de Personal durante la Revolución Industrial.',
+       a:'Enfoque productivista: interés en producción masiva y eficiencia mecánica. Jornadas de <strong>12 a 16 horas</strong>, escasas condiciones de seguridad, trabajo repetitivo. No existían departamentos de personal formales. El trabajador era considerado similar a una máquina.'},
+      {num:5,q:'¿Qué aportes realizó Frederick Taylor mediante la Administración Científica?',
+       a:'Propuso analizar el trabajo científicamente para maximizar la eficiencia. Aportes: <strong>estudio de tiempos y movimientos</strong>, división y especialización del trabajo, supervisión estricta, e <strong>incentivos económicos</strong> por rendimiento.'},
+      {num:6,q:'¿Cuáles fueron las principales críticas al modelo de Administración Científica?',
+       a:'Fue criticado por <strong>deshumanizar al trabajador</strong>, reduciéndolo a un ejecutor de tareas mecánicas e ignorando sus necesidades sociales y psicológicas.'},
+      {num:7,q:'¿Qué descubrieron los estudios de Elton Mayo y la Escuela de Relaciones Humanas?',
+       a:'Los Experimentos de Hawthorne descubrieron que la productividad depende de variables <strong>sociales y psicológicas</strong>. Hallazgos: importancia de la motivación, liderazgo, clima organizacional y comunicación. El trabajador es un ser social con necesidades emocionales.'},
+      {num:8,q:'¿Cómo evolucionó la gestión de personal hacia la Administración de Recursos Humanos?',
+       a:'En la segunda mitad del siglo XX, se reconoció a las personas como <strong>recursos estratégicos</strong>. Se formalizaron: reclutamiento y selección estructurada, capacitación continua, <strong>evaluación del desempeño</strong>, planes de carrera y compensaciones estratégicas.'},
+      {num:9,q:'¿Por qué el talento humano es considerado actualmente una ventaja competitiva?',
+       a:'Porque es la base de la <strong>ventaja competitiva sostenible</strong>. Las personas son el único elemento capaz de innovar, tomar decisiones y generar valor real. La cultura, inteligencia emocional y capacidad de aprendizaje son difíciles de replicar.'}
+    ]
+  },
+  {
+    id:2, icon:'📈', title:'Unidad II', subtitle:'Productividad, Motivación y Compensación',
+    questions:[
+      {num:1,q:'¿Qué se entiende por productividad?',
+       a:'Relación entre los <strong>bienes o servicios producidos</strong> y los <strong>recursos empleados</strong> (tiempo, capital, talento humano). Permite evaluar el rendimiento de los recursos. Fórmula: valor generado ÷ recursos empleados.'},
+      {num:2,q:'Explique la diferencia entre eficiencia, eficacia y efectividad.',
+       a:'<strong>Eficiencia:</strong> uso óptimo de recursos, "hacer las cosas bien". <strong>Eficacia:</strong> cumplimiento de objetivos, "hacer las cosas correctas". <strong>Efectividad:</strong> integración de ambas: lograr resultados usando adecuadamente los recursos.'},
+      {num:3,q:'¿Qué es la gestión de calidad?',
+       a:'Elemento estratégico que busca <strong>satisfacer necesidades y expectativas de los clientes</strong>. Filosofía: "hacer bien las cosas desde la primera vez". Ligada a la cultura organizacional y el liderazgo.'},
+      {num:4,q:'¿Qué se entiende por mejora continua?',
+       a:'Filosofía de <strong>optimización permanente de procesos</strong>. Herramienta principal: <strong>ciclo PHVA</strong> (Planificar, Hacer, Verificar, Actuar). Proceso constante que involucra todos los niveles organizacionales.'},
+      {num:5,q:'¿Qué es la motivación laboral?',
+       a:'Conjunto de <strong>fuerzas internas y externas</strong> que impulsan a una persona a actuar para alcanzar objetivos. Influye en el comportamiento, desempeño y compromiso.'},
+      {num:6,q:'¿Qué factores influyen en la satisfacción laboral?',
+       a:'Factores: <strong>ambiente laboral</strong>, relaciones interpersonales, <strong>reconocimiento</strong>, oportunidades de crecimiento y <strong>remuneración</strong>.'},
+      {num:7,q:'¿Cuál es la diferencia entre motivación y satisfacción laboral?',
+       a:'La <strong>motivación</strong> es el impulso para actuar hacia una meta. La <strong>satisfacción</strong> es el estado de bienestar respecto al trabajo. Una persona puede estar motivada pero no satisfecha, o viceversa.'},
+      {num:8,q:'¿Qué necesidades suelen buscar satisfacer los trabajadores dentro de una organización?',
+       a:'1) <strong>Seguridad laboral</strong>, 2) Estabilidad económica, 3) <strong>Desarrollo profesional</strong>, 4) Reconocimiento, 5) Buen ambiente de trabajo.'},
+      {num:9,q:'¿Qué expectativas tienen las organizaciones respecto a sus trabajadores?',
+       a:'<strong>Compromiso</strong> y responsabilidad, productividad y cumplimiento de metas, <strong>adaptabilidad al cambio</strong>.'},
+      {num:10,q:'Diferencie trabajo individual y trabajo en equipo.',
+       a:'<strong>Trabajo individual:</strong> autonomía, especialización, responsabilidad directa. <strong>Trabajo en equipo:</strong> colaboración para objetivo común, genera sinergia, mayor innovación y resolución de problemas complejos.'},
+      {num:11,q:'¿Qué son los salarios, incentivos y beneficios laborales?',
+       a:'<strong>Salario:</strong> remuneración fija. <strong>Incentivos:</strong> recompensas variables ligadas al desempeño (bonos, comisiones). <strong>Beneficios:</strong> compensación indirecta (seguro médico, licencias, capacitaciones).'},
+      {num:12,q:'¿Cómo influye la compensación en la motivación de los trabajadores?',
+       a:'Es clave para alinear el comportamiento con los objetivos. Según la <strong>Teoría de la Equidad</strong> (Adams), la motivación depende de la percepción de justicia: el trabajador compara su esfuerzo y recompensa con pares. Si percibe equidad se motiva; si no, disminuye el esfuerzo o abandona.'}
+    ]
+  },
+  {
+    id:3, icon:'🧩', title:'Unidad III', subtitle:'Estudio de los Puestos',
+    questions:[
+      {num:1,q:'¿Qué es un puesto de trabajo?',
+       a:'Es la <strong>unidad básica de toda organización</strong>. Conjunto de tareas, responsabilidades y funciones asignadas a una persona. Sistema interdependiente definido por su ubicación en el organigrama y nivel jerárquico.'},
+      {num:2,q:'¿Qué importancia tienen los puestos para la gestión del talento humano?',
+       a:'Permiten <strong>organizar el trabajo</strong> estableciendo qué, cómo y quién es responsable. Son base para reclutamiento, selección, capacitación, evaluación y compensación. Garantizan que las personas adecuadas ocupen los puestos correctos.'},
+      {num:3,q:'¿Por qué es importante realizar un análisis de puestos?',
+       a:'Permite comprender qué se hace en un puesto y qué competencias se necesitan. Base para: planificación de RR.HH., reclutamiento (perfil del candidato), capacitación (detectar brechas), evaluación y compensación (equidad interna).'},
+      {num:4,q:'¿Qué es una descripción de puestos?',
+       a:'Documento formal que detalla las <strong>tareas, funciones, responsabilidades y condiciones operativas</strong>. Se centra en el puesto (qué se hace). La especificación se centra en la persona (qué se necesita).'},
+      {num:5,q:'¿Qué elementos contiene una descripción de puestos?',
+       a:'<strong>Identificación</strong> (nombre, área, nivel jerárquico), <strong>objetivo principal</strong>, <strong>funciones y responsabilidades</strong>, <strong>relaciones</strong> internas y externas, y <strong>condiciones de trabajo</strong>.'},
+      {num:6,q:'¿Qué son las competencias laborales?',
+       a:'Conjunto de <strong>capacidades integrales</strong> para desempeñarse efectivamente en un contexto laboral. Consideran qué hace la persona, <strong>cómo lo hace</strong> y con qué nivel de desempeño.'},
+      {num:7,q:'Explique los componentes de las competencias: saber, saber hacer y saber ser.',
+       a:'<strong>Saber (Conocimientos):</strong> formación académica y teoría. <strong>Saber hacer (Habilidades):</strong> destreza técnica y aplicación práctica. <strong>Saber ser (Actitudes):</strong> compromiso, adaptabilidad, integridad e inteligencia emocional (base del alto desempeño).'},
+      {num:8,q:'¿Por qué las organizaciones modernas utilizan un enfoque basado en competencias?',
+       a:'Les permite ser más <strong>ágiles y adaptables</strong>. Promueven la <strong>polivalencia</strong> del trabajador y alinean capacidades con objetivos estratégicos. Fomenta desarrollo continuo y evaluaciones objetivas basadas en comportamientos observables.'}
+    ]
+  },
+  {
+    id:4, icon:'🎯', title:'Unidad IV', subtitle:'Reclutamiento, Selección e Inducción',
+    questions:[
+      {num:1,q:'¿Qué es la planeación de recursos humanos?',
+       a:'Proceso para <strong>determinar anticipadamente las necesidades de personal</strong> y alcanzar objetivos estratégicos. Evita exceso o escasez de personal y optimiza costos laborales.'},
+      {num:2,q:'¿Qué factores internos influyen en la previsión de personal?',
+       a:'<strong>Expansión</strong> de la empresa, nuevos proyectos, <strong>cambios tecnológicos</strong>, rotación del personal y promociones internas.'},
+      {num:3,q:'¿Qué factores externos influyen en la previsión de personal?',
+       a:'<strong>Situación económica</strong> del país, <strong>legislación laboral</strong>, disponibilidad de mano de obra y tendencias del mercado laboral.'},
+      {num:4,q:'¿Qué es el reclutamiento?',
+       a:'Conjunto de actividades para <strong>atraer candidatos potencialmente calificados</strong> para ocupar puestos vacantes. Busca generar un grupo amplio de aspirantes para seleccionar.'},
+      {num:5,q:'¿Cuáles son los objetivos del reclutamiento?',
+       a:'<strong>Atraer candidatos idóneos</strong>, cubrir vacantes oportunamente, <strong>reducir costos</strong> de contratación, garantizar igualdad de oportunidades y fortalecer la imagen institucional.'},
+      {num:6,q:'¿Qué ventajas presenta el reclutamiento interno?',
+       a:'<strong>Motiva al personal</strong> actual, reduce costos, disminuye tiempo de adaptación y aprovecha la experiencia previa del trabajador.'},
+      {num:7,q:'¿Qué desventajas puede generar el reclutamiento interno?',
+       a:'Puede generar <strong>conflictos internos</strong> y limita la entrada de <strong>nuevas ideas</strong> al no incorporar talento externo.'},
+      {num:8,q:'¿Cuáles son las principales fuentes de reclutamiento externo?',
+       a:'<strong>Redes sociales laborales</strong> (LinkedIn), universidades, bolsas de trabajo, recomendaciones, agencias de empleo y <strong>plataformas digitales</strong>.'},
+      {num:9,q:'¿Cómo han influido las tecnologías digitales en el reclutamiento?',
+       a:'Transformaron el proceso mediante plataformas virtuales y redes profesionales. Tendencia hacia la <strong>digitalización</strong> para profesionalizar la búsqueda y selección de talento.'},
+      {num:10,q:'¿Qué es la selección de personal?',
+       a:'Proceso de <strong>elegir al candidato más adecuado</strong> comparando los requisitos del cargo con las competencias de los aspirantes.'},
+      {num:11,q:'Describa las principales etapas del proceso de selección.',
+       a:'<strong>1) Recepción de solicitudes:</strong> recepción de CVs y depuración. <strong>2) Entrevistas:</strong> evaluación de comunicación y motivación. <strong>3) Pruebas:</strong> técnicas, psicotécnicas o de personalidad. <strong>4) Verificación:</strong> referencias y títulos.'},
+      {num:12,q:'¿Qué información suele analizarse en un currículum vitae?',
+       a:'<strong>Formación académica</strong>, experiencia laboral previa, habilidades y competencias técnicas, referencias personales y laborales.'},
+      {num:13,q:'¿Qué es la inducción del personal?',
+       a:'Proceso de <strong>orientación inicial</strong> para facilitar la adaptación e integración del nuevo trabajador a la cultura y dinámicas organizacionales.'},
+      {num:14,q:'¿Cuál es la importancia de la inducción para un nuevo trabajador?',
+       a:'<strong>Disminuye la ansiedad inicial</strong>, facilita la adaptación al equipo, ayuda a conocer normas, reduce errores iniciales y <strong>fortalece el compromiso</strong> y sentido de pertenencia.'}
+    ]
+  },
+  {
+    id:5, icon:'🌱', title:'Unidad V', subtitle:'Desarrollo del Talento y Evaluación del Desempeño',
+    questions:[
+      {num:1,q:'¿Qué es la aptitud?',
+       a:'Conjunto de <strong>condiciones o potencialidades</strong> para realizar funciones específicas. Disposición natural o adquirida para aprender y ejecutar tareas con eficacia.'},
+      {num:2,q:'¿Qué es la capacidad?',
+       a:'<strong>Habilidad real y demostrable</strong> para ejecutar una tarea concreta. Aplicación práctica de conocimientos, habilidades y experiencias.'},
+      {num:3,q:'Explique la diferencia entre aptitud y capacidad.',
+       a:'<strong>Aptitud:</strong> potencial, orientada al futuro, puede ser innata. <strong>Capacidad:</strong> habilidad demostrada, orientada al presente, se adquiere con aprendizaje y experiencia. Ej: se puede tener aptitud para el liderazgo, la capacidad se desarrolla con práctica.'},
+      {num:4,q:'Mencione ejemplos de aptitudes valoradas por las organizaciones.',
+       a:'<strong>Capacidad analítica</strong>, comunicación efectiva, <strong>liderazgo</strong>, resolución de problemas, adaptabilidad al cambio, creatividad y <strong>trabajo en equipo</strong>.'},
+      {num:5,q:'¿Qué es el Diagnóstico de Necesidades de Capacitación (DNC)?',
+       a:'Proceso sistemático para <strong>identificar brechas</strong> entre el desempeño actual y el esperado. Detecta deficiencias en conocimientos, habilidades o actitudes.'},
+      {num:6,q:'Explique los tres niveles del diagnóstico de capacitación.',
+       a:'<strong>Nivel Organizacional:</strong> objetivos estratégicos y necesidades generales. <strong>Nivel de Puesto:</strong> competencias requeridas para un cargo. <strong>Nivel Individual:</strong> desempeño de cada trabajador para necesidades específicas.'},
+      {num:7,q:'¿Qué es un plan de capacitación?',
+       a:'Diseño estructurado de <strong>actividades formativas</strong> de corto plazo para fortalecer competencias. Busca mejorar el desempeño actual mediante adquisición de conocimientos y habilidades.'},
+      {num:8,q:'¿Qué beneficios aporta la capacitación a la organización?',
+       a:'<strong>Mayor productividad</strong>, reducción de errores, mejora en calidad del servicio, adaptación a nuevas tecnologías, incremento de <strong>motivación y satisfacción</strong> laboral.'},
+      {num:9,q:'¿Qué es un plan de carrera?',
+       a:'Proceso donde la organización identifica <strong>oportunidades de crecimiento profesional</strong> y prepara colaboradores para futuras responsabilidades. Alinea aspiraciones personales con necesidades institucionales.'},
+      {num:10,q:'¿Por qué los planes de carrera ayudan a retener talento?',
+       a:'Ofrecen <strong>proyección de crecimiento</strong>, incrementan el compromiso organizacional y reducen la rotación. Los empleados permanecen más tiempo al sentir que la empresa invierte en su futuro.'},
+      {num:11,q:'¿Qué es la evaluación del desempeño?',
+       a:'Proceso <strong>sistemático y periódico</strong> que mide el rendimiento laboral según metas y criterios preestablecidos. Evalúa comportamiento, competencias y resultados.'},
+      {num:12,q:'¿Por qué es importante evaluar el desempeño de los trabajadores?',
+       a:'<strong>Para el trabajador:</strong> conocer su nivel, recibir orientación y reconocimiento. <strong>Para la organización:</strong> medir cumplimiento, detectar necesidades de capacitación y facilitar decisiones sobre ascensos e incentivos.'},
+      {num:13,q:'¿Qué es la retroalimentación?',
+       a:'Proceso donde el evaluador comunica al trabajador los <strong>resultados de su evaluación</strong>, destacando fortalezas y aspectos a mejorar. Debe ser clara, objetiva y constructiva.'},
+      {num:14,q:'¿Cómo pueden utilizarse los resultados de la evaluación del desempeño para mejorar la organización?',
+       a:'Para: identificar necesidades de formación, decidir <strong>promociones y ascensos</strong>, asignar reconocimientos e incentivos, diseñar planes de mejora y orientar la <strong>planificación de carrera</strong>.'}
+    ]
+  }
+];
+
+// ========== STATE ==========
+let currentUnit = 0;
+let flashcardMode = false;
+let studied = JSON.parse(localStorage.getItem('adm3_studied') || '{}');
+
+function saveStudied(){localStorage.setItem('adm3_studied',JSON.stringify(studied))}
+
+// ========== CANVAS STARS ==========
+const canvas=document.getElementById('starfield'),ctx=canvas.getContext('2d');
+let stars=[],W,H;
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}
+window.addEventListener('resize',resize);resize();
+for(let i=0;i<160;i++){stars.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.8+0.2,o:Math.random(),s:Math.random()*0.3+0.05})}
+function drawStars(){
+  ctx.clearRect(0,0,W,H);
+  stars.forEach(s=>{
+    s.o+=s.s*0.008;
+    const o=0.3+0.7*Math.abs(Math.sin(s.o));
+    ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(224,224,255,${o})`;ctx.fill()
+  });
+  // shooting star
+  if(Math.random()<0.003){
+    const sx=Math.random()*W,sy=0,len=80+Math.random()*60;
+    const grad=ctx.createLinearGradient(sx,sy,sx-len,sy+len);
+    grad.addColorStop(0,'rgba(255,255,255,0.8)');grad.addColorStop(1,'rgba(255,255,255,0)');
+    ctx.beginPath();ctx.moveTo(sx,sy);ctx.lineTo(sx-len,sy+len);
+    ctx.strokeStyle=grad;ctx.lineWidth=1.5;ctx.stroke()
+  }
+  requestAnimationFrame(drawStars)
+}
+drawStars();
+
+// ========== RENDER ==========
+function render(){
+  const u=UNITS[currentUnit];
+  document.getElementById('unitTitle').innerHTML=`${u.icon} ${u.title}<span class="unit-sub">${u.subtitle}</span>`;
+
+  // Nav
+  const nav=document.getElementById('unitNav');
+  nav.innerHTML=UNITS.map((u,i)=>`
+    <button class="unit-tab${i===currentUnit?' active':''}" data-idx="${i}">
+      <span class="icon">${u.icon}</span>
+      <span class="label">${u.title.split(':')[0]}</span>
+      <span class="check${studiedAll(u.questions,i)?' done':''}" id="check-${i}">✓</span>
+    </button>
+  `).join('');
+  nav.querySelectorAll('.unit-tab').forEach(b=>b.addEventListener('click',()=>{
+    currentUnit=parseInt(b.dataset.idx);
+    render();
+    if(window.innerWidth<=768){document.getElementById('sidebar').classList.remove('open')}
+  }));
+
+  // Questions
+  const query=document.getElementById('searchInput').value.toLowerCase();
+  const container=document.getElementById('questionsContainer');
+  const filtered=u.questions.filter(q=>q.q.toLowerCase().includes(query));
+  
+  if(filtered.length===0){
+    container.innerHTML=`<div class="empty-state"><div class="icon">🔮</div><p>No hay preguntas que coincidan con "<strong>${query}</strong>"</p></div>`;
+  }else{
+    container.innerHTML=filtered.map((q,i)=>{
+      const key=`${u.id}-${q.num}`;
+      const isStudied=!!studied[key];
+      const isVisible=!query||q.q.toLowerCase().includes(query);
+      return `<div class="q-card${isStudied?' studied':''}${flashcardMode?'':' open'}" data-key="${key}" style="${isVisible?'':'display:none'}">
+        <div class="q-card-top">
+          <span class="num">${q.num}</span>
+          <div class="q-text">${q.q}</div>
+        </div>
+        <div class="q-answer">${q.a}</div>
+        <button class="study-toggle" data-key="${key}">${isStudied?'✓':''}</button>
+      </div>`
+    }).join('');
   }
 
-  function scrollToUnit(n) {
-    const card = document.querySelector(`[data-unit="${n}"]`);
-    if (card) {
-      card.scrollIntoView({behavior:'smooth', block:'start'});
-      const header = card.querySelector('.unit-header');
-      const content = card.querySelector('.unit-content');
-      if (!content.classList.contains('open')) {
-        header.classList.add('active');
-        content.classList.add('open');
-      }
+  // Counter
+  const total=u.questions.length;
+  const done=u.questions.filter(q=>studied[`${u.id}-${q.num}`]).length;
+  document.getElementById('counter').textContent=`📖 ${query?'Filtradas: '+filtered.length+' de ':''}${done} de ${total} estudiadas`;
+
+  // Events
+  container.querySelectorAll('.q-card').forEach(c=>{
+    const h=c.querySelector('.q-card-top');
+    h.addEventListener('click',e=>{if(!e.target.closest('.study-toggle')){c.classList.toggle('open')}});
+  });
+  container.querySelectorAll('.study-toggle').forEach(b=>b.addEventListener('click',e=>{
+    e.stopPropagation();
+    const key=b.dataset.key;
+    studied[key]=!studied[key];
+    if(!studied[key])delete studied[key];
+    saveStudied();render()
+  }));
+
+  updateProgress()
+}
+
+function studiedAll(qs,ui){
+  return qs.every(q=>studied[`${ui+1}-${q.num}`])
+}
+
+function updateProgress(){
+  let tot=0,done=0;
+  UNITS.forEach((u,i)=>{u.questions.forEach(q=>{
+    tot++;if(studied[`${i+1}-${q.num}`])done++
+  })});
+  const pct=tot?Math.round(done/tot*100):0;
+  document.getElementById('overallBar').style.width=pct+'%';
+  document.getElementById('overallPct').textContent=pct+'% ('+done+'/'+tot+')';
+}
+
+// ========== SEARCH ==========
+document.getElementById('searchInput').addEventListener('input',render);
+
+// ========== FLASHCARD MODE ==========
+document.getElementById('flashToggle').addEventListener('click',function(){
+  flashcardMode=!flashcardMode;
+  this.classList.toggle('active');
+  if(flashcardMode){
+    // close all answers
+    document.querySelectorAll('.q-card').forEach(c=>c.classList.remove('open'));
+    this.textContent='🃏 Respuestas';
+  }else{
+    // open all
+    document.querySelectorAll('.q-card').forEach(c=>c.classList.add('open'));
+    this.textContent='🃏 Flashcards';
+  }
+});
+
+// ========== RANDOM ==========
+document.getElementById('randomBtn').addEventListener('click',function(){
+  // get all unanswered
+  let all=[];
+  UNITS.forEach((u,i)=>{u.questions.forEach(q=>{
+    const key=`${i+1}-${q.num}`;
+    all.push({unitIdx:i,question:q,key})
+  })});
+  if(all.length===0)return;
+  // prefer unstudied (70% chance) or any
+  const unstudied=all.filter(x=>!studied[x.key]);
+  const pool=unstudied.length>0&&Math.random()<0.7?unstudied:all;
+  const pick=pool[Math.floor(Math.random()*pool.length)];
+  
+  // switch to that unit
+  currentUnit=pick.unitIdx;
+  render();
+  
+  // scroll and open
+  setTimeout(()=>{
+    const cards=document.querySelectorAll('.q-card');
+    const target=cards[pick.question.num-1];
+    if(target){
+      target.classList.add('open');
+      target.scrollIntoView({behavior:'smooth',block:'center'});
+      // highlight
+      target.style.borderColor='var(--accent)';
+      setTimeout(()=>{target.style.borderColor=''},2000)
     }
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-    event.target.classList.add('active');
-  }
+    showToast(`🎲 ${pick.question.q.substring(0,60)}...`)
+  },100)
+});
 
-  function updateProgress() {
-    const total = 63;
-    let done = 0;
-    document.querySelectorAll('.q-item').forEach(item => {
-      const content = item.closest('.unit-content');
-      if (content && content.classList.contains('open')) {
-        done++;
-      }
-    });
-    const pct = Math.round((done / total) * 100);
-    document.getElementById('progressBar').style.width = pct + '%';
-    document.getElementById('progressText').textContent = done + ' / ' + total;
-  }
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.innerHTML=msg;t.classList.add('show');
+  clearTimeout(t._hide);t._hide=setTimeout(()=>t.classList.remove('show'),3500)
+}
 
-  updateProgress();
+// ========== KEYBOARD ==========
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowLeft'&&currentUnit>0){currentUnit--;render()}
+  if(e.key==='ArrowRight'&&currentUnit<UNITS.length-1){currentUnit++;render()}
+});
+
+// ========== SIDEBAR TOGGLE ==========
+document.getElementById('sidebarToggle').addEventListener('click',()=>{
+  document.getElementById('sidebar').classList.toggle('open')
+});
+
+// ========== INIT ==========
+render();
 </script>
 </body>
 </html>
